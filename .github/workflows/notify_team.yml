@@ -1,0 +1,20 @@
+name: Notificacion creado cliente
+
+on:
+  push:
+    paths:
+      - '**/*.txt'  # Adjust the file pattern as needed
+
+jobs:
+  notify_team:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Notify Team
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{"content":"Un nuevo cliente se ha agregado"}' \
+             $DISCORD_WEBHOOK_URL
