@@ -1,0 +1,21 @@
+name: Notificaicon Cliente editado
+
+on:
+  push:
+    paths:
+      - '**/*.txt'  # Adjust the file pattern as needed
+
+jobs:
+  notify_team:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Notify Team
+      if: 'github.event_name == "push" && contains(github.event.head_commit.message, "Update client information")'
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{"content":"La informacion de un cliente ha sido editada."}' \
+             $DISCORD_WEBHOOK_URL
