@@ -1,0 +1,21 @@
+name: Notificacion de cliente borrado
+
+on:
+  push:
+    paths:
+      - '**/client_*.txt'  
+jobs:
+  notify_team:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check for deleted clients
+      id: check_clients
+      run: |
+        deleted_files=$(git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | grep 'client_')
+        echo "::set-output name=deleted_files::$deleted_files"
+
+    - name: Notify Team
+      if: ${{ steps.check_clients.outputs.deleted_files != '' }}
+      run: |
+        echo "Un cliente ha sido borrado."
