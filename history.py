@@ -20,3 +20,6 @@ git init
 
 ## ---(Fri Feb  2 09:31:03 2024)---
 conda install spyder-terminal -c conda-forge
+
+## ---(Fri Feb  2 10:05:10 2024)---
+runfile('C:/Users/lopez/.spyder-py3/temp.py', wdir='C:/Users/lopez/.spyder-py3')
