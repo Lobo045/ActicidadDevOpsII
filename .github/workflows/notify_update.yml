@@ -28,6 +28,6 @@ jobs:
         git config --global user.email "lopezabraham@outlook.com"
         git config --global user.name "Lobo046"
         git add -A
-        git commit -m "Automated commit for client edit"
+        git commit -m "Update client information"
         git push origin HEAD
 
