@@ -1,5 +1,4 @@
-name: Notificacion Cliente editado
-
+name: Notification para edicion de clientes
 on:
   push:
     paths:
@@ -10,24 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Notify Team
-      if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Update client information')"
+    - name: Notify Team on Client Edit
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Edit client')"
       run: |
         curl -H "Content-Type: application/json" \
              -X POST \
-             -d '{"content":"La informacion de un cliente ha sido editada."}' \
+             -d '{"content":"Un cliente ha sido editado"}' \
              $DISCORD_WEBHOOK_URL
-
-    - name: Automate Commit
-      if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Edit client information')"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git config --global user.email "lopezabraham@outlook.com"
-        git config --global user.name "Lobo046"
-        git add -A
-        git commit -m "Update client information"
-        git push origin HEAD
-
