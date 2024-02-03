@@ -1,9 +1,9 @@
-name: Notificaicon Cliente editado
+name: Notificacion Cliente editado
 
 on:
   push:
     paths:
-      - '**/*.txt'  # Adjust the file pattern as needed
+      - '**/*.txt'  
 
 jobs:
   notify_team:
@@ -19,3 +19,15 @@ jobs:
              -X POST \
              -d '{"content":"La informacion de un cliente ha sido editada."}' \
              $DISCORD_WEBHOOK_URL
+
+    - name: Automate Commit
+      if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Edit client information')"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.email "lopezabraham@outlook.com"
+        git config --global user.name "Lobo046"
+        git add -A
+        git commit -m "Automated commit for client edit"
+        git push origin HEAD
+
