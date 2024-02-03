@@ -6,7 +6,7 @@ on:
       - '**/*.txt' 
 
 jobs:
-  notify_team:
+  notify_team_delete:
     runs-on: ubuntu-latest
 
     steps:
