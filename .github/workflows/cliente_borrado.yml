@@ -1,21 +1,21 @@
-name: Notificacion de cliente borrado
+name: Notification para borrado de clientes
 
 on:
   push:
     paths:
-      - '**/client_*.txt'  
+      - '**/*.txt' 
+
 jobs:
   notify_team:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check for deleted clients
-      id: check_clients
+    - name: Notify Team on Client Deletion
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Delete client')"
       run: |
-        deleted_files=$(git diff --name-only --diff-filter=D ${{ github.event.before }} ${{ github.sha }} | grep 'client_')
-        echo "::set-output name=deleted_files::$deleted_files"
-
-    - name: Notify Team
-      if: ${{ steps.check_clients.outputs.deleted_files != '' }}
-      run: |
-        echo "Un cliente ha sido borrado."
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{"content":"Un cliente ha sido eliminado"}' \
+             $DISCORD_WEBHOOK_URL
