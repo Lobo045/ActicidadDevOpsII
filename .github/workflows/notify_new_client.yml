@@ -3,8 +3,7 @@ name: Notificacion creado cliente
 on:
   push:
     paths:
-      - '**/*.txt'  # Adjust the file pattern as needed
-
+      - '**/*.txt'  
 jobs:
   notify_team:
     runs-on: ubuntu-latest
