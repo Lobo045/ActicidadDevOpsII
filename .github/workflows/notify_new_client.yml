@@ -5,7 +5,7 @@ on:
     paths:
       - '**/*.txt'  
 jobs:
-  notify_team:
+  notify_new_client:
     runs-on: ubuntu-latest
 
     steps:
