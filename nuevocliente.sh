@@ -3,6 +3,7 @@
 added_files=$(git diff --name-status --diff-filter=A | grep '^A' | grep 'client_')
 
 if [ -n "$added_files" ]; then
+    git pull
     git add .
     
     git commit -m "New Client"
