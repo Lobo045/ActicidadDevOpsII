@@ -2,7 +2,7 @@ name: Notification para edicion de clientes
 on:
   push:
     paths:
-      - 'text_files/*.txt'  
+      - '**/*.txt'  
 
 jobs:
   notify_team_edit:
