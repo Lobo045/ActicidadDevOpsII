@@ -3,7 +3,7 @@ name: Notificacion creado cliente
 on:
   push:
     paths:
-      - '**/*.txt'  
+      - 'text_files/*.txt' 
 jobs:
   notify_new_client:
     runs-on: ubuntu-latest
